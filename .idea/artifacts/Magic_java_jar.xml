@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Magic_java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Magic_java_jar</output-path>
+    <root id="archive" name="Magic_java.jar">
+      <element id="module-output" name="Magic_java" />
+    </root>
+  </artifact>
+</component>

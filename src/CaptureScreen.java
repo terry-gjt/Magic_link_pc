@@ -59,8 +59,8 @@ public class CaptureScreen extends JFrame implements ActionListener{
         buttonJP.add(cancel);
         buttonJP.setBorder(BorderFactory.createTitledBorder("公共操作区"));
         JPanel jp=new JPanel();//放两个单选按钮的面板
-        jp.add(java=new JRadioButton("java界面"));
-        jp.add(system=new JRadioButton("系统界面",true));
+        jp.add(java=new JRadioButton("java界面",true));
+        jp.add(system=new JRadioButton("系统界面"));
         java.addActionListener(this);
         system.addActionListener(this);
         jp.setBorder(BorderFactory.createTitledBorder("界面风格"));
@@ -80,13 +80,14 @@ public class CaptureScreen extends JFrame implements ActionListener{
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we){
                 CaptureScreen.this.setVisible(false);
+                System.exit(0);
             }
         });
     }
     private void initTrayIcon(){
         try{
             SystemTray st=SystemTray.getSystemTray();
-            Image im=ImageIO.read(this.getClass().getResource("bg.gif"));
+            Image im=ImageIO.read(this.getClass().getResource("./bg.png"));
             PopupMenu pm=new PopupMenu("弹出菜单");
             pm.add(new MenuItem("关于")).addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent ae){
@@ -122,7 +123,8 @@ public class CaptureScreen extends JFrame implements ActionListener{
                 }
             });
         }catch(Exception exe){
-            exe.printStackTrace();
+            System.out.println(exe.getMessage());
+//            exe.printStackTrace();
         }
     }
     private void updates(){
@@ -341,6 +343,7 @@ public class CaptureScreen extends JFrame implements ActionListener{
         c=null;
         System.gc();
     }
+    @Override
     public void actionPerformed(ActionEvent ae){
         Object source=ae.getSource();
         if(source==start){
