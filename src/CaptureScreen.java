@@ -37,9 +37,6 @@ public class CaptureScreen extends JFrame implements ActionListener{
         initOther();
         initTrayIcon();
     }
-    private void initOther(){
-        jtp=new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
-    }
     private void initWindow(){
         start=new JButton("开始截取");
         saveAll=new JButton("保存所有");
@@ -83,6 +80,9 @@ public class CaptureScreen extends JFrame implements ActionListener{
                 System.exit(0);
             }
         });
+    }
+    private void initOther(){
+        jtp=new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
     }
     private void initTrayIcon(){
         try{

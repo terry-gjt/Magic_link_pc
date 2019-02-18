@@ -1,9 +1,6 @@
 package magic_link_all.common;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 
@@ -13,7 +10,7 @@ import java.net.Socket;
 
 public class Connection extends Thread{
     public int mynum=100;
-//    private Handler shandler;
+    private PipedOutputStream sPipedOutputStream;
     public boolean ipsetted=false;
     private boolean isConnecting = false;
     private Socket mSocketClient = null;
@@ -74,9 +71,9 @@ public class Connection extends Thread{
         sIP=ip;
         ipsetted=true;
     }
-//    public void sethandler(Handler h){
-//        shandler=h;
-//    }
+    public void setPipedOutputStream(PipedOutputStream h){
+        sPipedOutputStream=h;
+    }
     public void stopconnect() {
         if(isConnecting)
         {
@@ -134,17 +131,18 @@ public class Connection extends Thread{
         }
         return false;
     }
-    private void receivemess(String ss){//收到消息
-//        if(shandler!=null)
+    private void receivemess(String ss) throws IOException {//收到消息
+        System.out.println("线程connection,receivemess"+ss);
+        if(sPipedOutputStream!=null)
         {
             mesage[rear]=ss;//放入消息
             if(rear<9)rear++;
             else {
                 rear=0;
             }
-//            Message msg = new Message();
-//            msg.what = 1;
-//            shandler.sendMessage(msg);
+            System.out.println("线程connection,0222q");
+            sPipedOutputStream.write(0222);
+            System.out.println("线程connection,0222"+ss);
         }
     }
     public String getmess(){
