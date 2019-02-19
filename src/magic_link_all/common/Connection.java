@@ -140,9 +140,9 @@ public class Connection extends Thread{
             else {
                 rear=0;
             }
-            System.out.println("线程connection,0222q");
-            sPipedOutputStream.write(0222);
-            System.out.println("线程connection,0222"+ss);
+            System.out.println("线程connection,02q");
+            sPipedOutputStream.write(02);
+            System.out.println("线程connection,02"+ss);
         }
     }
     public String getmess(){

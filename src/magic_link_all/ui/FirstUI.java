@@ -67,7 +67,7 @@ public class FirstUI extends JFrame  implements ActionListener{
         connect=new JButton("连接");
         connect.addActionListener(this);
         miyaotext=new JTextField(8);
-        miyaotext.setText("269145");
+        miyaotext.setText("257133");
         LoginJP.add(miyaotext);
         LoginJP.add(connect);
         LoginJP.setBorder(BorderFactory.createTitledBorder("请输入登录密钥"));
@@ -172,9 +172,11 @@ public class FirstUI extends JFrame  implements ActionListener{
         public void run() {
             try {
                 int te=pis.read();
-                System.out.println("ces"+pis.read());
+                System.out.println("MessageReader"+pis.read());
                 MessgaeShowArea.setText("----------"+pis.read());
+                System.out.println("MessageReader完成");
             } catch (IOException e) {
+                System.out.println("MessageReader"+e.toString());
                 e.printStackTrace();
             }
         }
