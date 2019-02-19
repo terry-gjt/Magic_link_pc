@@ -1,5 +1,6 @@
 package magic_link_all.common;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 
@@ -10,7 +11,8 @@ import java.net.Socket;
 
 public class Connection extends Thread{
     public int mynum=100;
-    private PipedOutputStream sPipedOutputStream;
+    private JLabel MessgaeShowArea;
+//    private Hander sHander;
     public boolean ipsetted=false;
     private boolean isConnecting = false;
     private Socket mSocketClient = null;
@@ -67,13 +69,14 @@ public class Connection extends Thread{
             mynum=port;
         }
     }
-    public Connection(String ip){
+    public Connection(String ip,JLabel MessgaeShow){
+        MessgaeShowArea=MessgaeShow;
         sIP=ip;
         ipsetted=true;
     }
-    public void setPipedOutputStream(PipedOutputStream h){
-        sPipedOutputStream=h;
-    }
+//    public void setHander(Hander h){
+//        sHander=h;
+//    }
     public void stopconnect() {
         if(isConnecting)
         {
@@ -131,19 +134,11 @@ public class Connection extends Thread{
         }
         return false;
     }
-    private void receivemess(String ss) throws IOException {//收到消息
+    private void receivemess(String ss) {//收到消息
         System.out.println("线程connection,receivemess"+ss);
-        if(sPipedOutputStream!=null)
-        {
-            mesage[rear]=ss;//放入消息
-            if(rear<9)rear++;
-            else {
-                rear=0;
-            }
-            System.out.println("线程connection,02q");
-            sPipedOutputStream.write(02);
-            System.out.println("线程connection,02"+ss);
-        }
+        String t=MessgaeShowArea.getText();
+        MessgaeShowArea.setText(t+"        "+ss);
+        System.out.println("线程connection,02"+ss);
     }
     public String getmess(){
         String s=mesage[front];

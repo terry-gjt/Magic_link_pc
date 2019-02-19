@@ -107,20 +107,6 @@ public class FirstUI extends JFrame  implements ActionListener{
             }
         });
     }
-    private void initPipe(){
-//         * 创建管道输出流,输入流
-        pos =new PipedOutputStream();
-        pis =new PipedInputStream();
-        try {
-// * 将管道输入流与输出流连接 此过程也可通过重载的构造函数来实现
-            pos.connect(pis);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-
-        MessageReader r = new MessageReader(pis);
-        r.start();
-    }
     private void SendMessage(String s){
         if(connection!=null){
             connection.sendstring(s);
@@ -138,9 +124,7 @@ public class FirstUI extends JFrame  implements ActionListener{
 //            MainActivity activity=(MainActivity)getActivity();
 //            activity.newconnection(ss);//创建新连接
 //            connection=activity.getconnection();
-            initPipe();
-            connection=new Connection(ss);
-            connection.setPipedOutputStream(pos);
+            connection=new Connection(ss,MessgaeShowArea);
             connection.startconnect();//打开连接
             connect.setText("断开");
             miyaotext.setEnabled(false);
@@ -160,25 +144,6 @@ public class FirstUI extends JFrame  implements ActionListener{
             StartConnect();
         }else if(source==UserButtun){
         }else if(source==AdminButtun){
-        }
-    }
-    class MessageReader extends Thread {
-        private PipedInputStream pis;
-
-        public MessageReader(PipedInputStream pis) {
-            this.pis = pis;
-        }
-
-        public void run() {
-            try {
-                int te=pis.read();
-                System.out.println("MessageReader"+pis.read());
-                MessgaeShowArea.setText("----------"+pis.read());
-                System.out.println("MessageReader完成");
-            } catch (IOException e) {
-                System.out.println("MessageReader"+e.toString());
-                e.printStackTrace();
-            }
         }
     }
 }
