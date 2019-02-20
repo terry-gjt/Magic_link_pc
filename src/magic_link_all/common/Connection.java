@@ -136,8 +136,8 @@ public class Connection extends Thread{
     }
     private void receivemess(String ss) {//收到消息
         System.out.println("线程connection,receivemess"+ss);
-        String t=MessgaeShowArea.getText();
-        MessgaeShowArea.setText(t+"        "+ss);
+//        String t=MessgaeShowArea.getText();
+        MessgaeShowArea.setText(ss);
         System.out.println("线程connection,02"+ss);
     }
     public String getmess(){
