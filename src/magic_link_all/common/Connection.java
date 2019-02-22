@@ -10,9 +10,9 @@ import java.net.Socket;
  */
 
 public class Connection extends Thread{
-    public int mynum=100;
-    private JLabel MessgaeShowArea;
-//    private Hander sHander;
+    private int mynum=100;
+//    private JLabel MessgaeShowArea;
+    private Hander sHander;
     public boolean ipsetted=false;
     private boolean isConnecting = false;
     private Socket mSocketClient = null;
@@ -69,8 +69,11 @@ public class Connection extends Thread{
             mynum=port;
         }
     }
-    public Connection(String ip,JLabel MessgaeShow){
-        MessgaeShowArea=MessgaeShow;
+    public String getmynum(){
+        return mynum+"";
+    }
+    public Connection(String ip,Hander h){
+        sHander=h;
         sIP=ip;
         ipsetted=true;
     }
@@ -137,7 +140,7 @@ public class Connection extends Thread{
     private void receivemess(String ss) {//收到消息
         System.out.println("线程connection,receivemess"+ss);
 //        String t=MessgaeShowArea.getText();
-        MessgaeShowArea.setText(ss);
+        sHander.receivemess(ss);
         System.out.println("线程connection,02"+ss);
     }
     public String getmess(){

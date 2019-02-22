@@ -1,6 +1,7 @@
 package magic_link_all.ui;
 
 import magic_link_all.common.Connection;
+import magic_link_all.common.Hander;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +15,9 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
 import static magic_link_all.common.Safe.decipher;
+import static magic_link_all.common.Safe.getfront;
 
-public class FirstUI extends JFrame  implements ActionListener{
+public class FirstUI extends JFrame  implements ActionListener, Hander {
     private PipedOutputStream pos;
     private PipedInputStream pis;
     private Connection connection;
@@ -121,10 +123,7 @@ public class FirstUI extends JFrame  implements ActionListener{
         }else
         {
             String ss=decipher(miyaotext.getText());
-//            MainActivity activity=(MainActivity)getActivity();
-//            activity.newconnection(ss);//创建新连接
-//            connection=activity.getconnection();
-            connection=new Connection(ss,MessgaeShowArea);
+            connection=new Connection(ss,this);
             connection.startconnect();//打开连接
             connect.setText("断开");
             miyaotext.setEnabled(false);
@@ -140,10 +139,27 @@ public class FirstUI extends JFrame  implements ActionListener{
         } else if(source==ExitButton){
             System.exit(0);
         }else if(source==AskButton){
+            SendMessage("0001.,."+connection.getmynum());
         }else if(source==connect){
             StartConnect();
         }else if(source==UserButtun){
         }else if(source==AdminButtun){
+        }
+    }
+
+    @Override
+    public void receivemess(String ss) {
+        String ff=getfront(ss);
+        switch (ff){
+            case "0002":
+
+//                SystemClock.sleep(1000);
+//                requestScreenShot();
+                break;
+            case "no":
+//                showmess(MessageServer);
+                MessgaeShowArea.setText(ss);
+                break;
         }
     }
 }
