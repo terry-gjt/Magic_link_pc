@@ -19,7 +19,7 @@ import java.nio.ByteBuffer;
 public class ShotAndSend extends Thread{
     private  boolean isConnecting=false;
     private Socket mSocketClient=null;
-    public boolean sendrun=false;
+    public boolean sendrun=true;
     public OutputStream photoout;
     public String sIP="192.168.43.1";
     private String recvMessageServer = "";
@@ -37,7 +37,8 @@ public class ShotAndSend extends Thread{
             mSocketClient = new Socket(sIP,55566);            //取得输入、输出流
             photoout=mSocketClient.getOutputStream();
         } catch (IOException e) {
-            e.printStackTrace();
+            
+            System.out.println("线程异常.sendbyte, "+e.toString());
         }
         while (sendrun){
             try {
@@ -52,8 +53,8 @@ public class ShotAndSend extends Thread{
                 Rectangle rec=new Rectangle(0,0,di.width,di.height);
                 BufferedImage bi=ro.createScreenCapture(rec);
                 sendbyte(imagetobyte(bi));
-            } catch(Exception exe){
-                exe.printStackTrace();
+            } catch(Exception e){
+                System.out.println("线程异常.sendbyte, "+e.toString());
             }
             System.out.println("线程异常.发送线程, 这里执行");
         }
@@ -63,7 +64,7 @@ public class ShotAndSend extends Thread{
         try {
             ImageIO.write((RenderedImage)image,"PNG",bos);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("线程异常.sendbyte, "+e.toString());
         }
         byte[] baobyte=bos.toByteArray();;
         return baobyte;
@@ -100,12 +101,11 @@ public class ShotAndSend extends Thread{
                     photoout.write(filelenthb2, 0, 8);//发送长度
                     photoout.flush();
                     System.out.println("线程运行, 长度标识已发送");
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, photoout);
+                    photoout.write(baobyte, 0, baobyte.length);//发送图像数据
                     photoout.flush();
                     System.out.println("线程运行, bitmap已发送");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
                 System.out.println("线程异常.sendbyte, "+e.toString());
             }
         }

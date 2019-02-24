@@ -2,6 +2,7 @@ package magic_link_all.ui;
 
 import magic_link_all.common.Connection;
 import magic_link_all.common.Hander;
+import magic_link_all.common.ShotAndSend;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.util.Date;
 
 import static magic_link_all.common.Safe.decipher;
 import static magic_link_all.common.Safe.getfront;
@@ -152,12 +154,19 @@ public class FirstUI extends JFrame  implements ActionListener, Hander {
         String ff=getfront(ss);
         switch (ff){
             case "0002":
-
-//                SystemClock.sleep(1000);
-//                requestScreenShot();
+                Robot  r   = null;
+                try {
+                    r = new Robot();
+                    System.out.println( "延时前:"+new Date().toString()  );
+                    r.delay(   1000   );
+                    System.out.println( "延时前:"+new Date().toString()  );
+                } catch (Exception e) {
+                    System.out.println( "线程异常:"+e.toString()  );
+                }
+                ShotAndSend shotter=new ShotAndSend(decipher(miyaotext.getText()));
+                shotter.start();
                 break;
             case "no":
-//                showmess(MessageServer);
                 MessgaeShowArea.setText(ss);
                 break;
         }
