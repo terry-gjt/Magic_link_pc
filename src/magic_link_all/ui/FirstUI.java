@@ -84,6 +84,7 @@ public class FirstUI extends JFrame  implements ActionListener, Hander {
         AskButton.addActionListener(this);
         ExitButton.addActionListener(this);
         MessageText=new JTextField(8);
+        MessageText.setText("你好啊");
         buttonJP.setLayout(new FlowLayout());
         buttonJP.add(MessageText);
         buttonJP.add(SendMessageButton);
